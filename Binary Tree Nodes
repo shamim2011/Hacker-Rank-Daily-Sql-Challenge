@@ -8,10 +8,18 @@ Inner: If node is neither root nor leaf node.
 
 ---------------------------------------------------------------------------------Sql-----------------
 
-select case 
-    when p is null then concat(n,' Root')
-    when n in(select distinct p from bst) then concat(n,' Inner')
-    else concat(n,' Leaf')
-    end
-from bst
-order by n asc;
+-- Select each node from the BST and classify it as Root, Inner, or Leaf
+SELECT 
+    CASE 
+        -- If the node has no parent, it is the Root
+        WHEN p IS NULL THEN CONCAT(n, ' Root')
+
+        -- If the node appears as a parent of another node, it's an Inner node
+        WHEN n IN (SELECT DISTINCT p FROM bst) THEN CONCAT(n, ' Inner')
+
+        -- Otherwise, it is a Leaf node
+        ELSE CONCAT(n, ' Leaf')
+    END AS node_type
+FROM bst
+ORDER BY n ASC;
+
