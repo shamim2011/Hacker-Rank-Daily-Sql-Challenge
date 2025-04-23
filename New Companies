@@ -1,0 +1,15 @@
+select
+c.company_code,
+c.founder,
+count(Distinct L.lead_manager_code),
+count(Distinct S.senior_manager_code),
+count(Distinct M.manager_code),
+count(Distinct E.Employee_code)
+
+from Company c
+join Lead_Manager L on c.company_code = L.company_code
+join Senior_Manager S on c.company_code = S.company_code
+join Manager M on c.company_code = M.company_code
+join Employee E on c.company_code = E.company_code
+Group By c.company_code,c.founder
+Order by c.company_code;
